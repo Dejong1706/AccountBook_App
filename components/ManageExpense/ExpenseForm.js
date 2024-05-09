@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 
 import Input from "./Input";
 import Button from "../UI/Button";
 import { getFormattedDate } from "../../util/date";
 import { GlobalStyles } from "../../constants/styles";
+import MyCalendar from "./Calendar";
 
 function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
+  const [modalVisible, setModalVisible] = useState(false);
   const [inputs, setInputs] = useState({
     amount: {
       value: defaultValues ? defaultValues.amount.toString() : "",
@@ -23,12 +25,10 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   });
 
   function inputChangedHandler(inputIdentifier, enteredValue) {
-    setInputs((curInputs) => {
-      return {
-        ...curInputs,
-        [inputIdentifier]: { value: enteredValue, isValid: true },
-      };
-    });
+    setInputs((curInputs) => ({
+      ...curInputs,
+      [inputIdentifier]: { value: enteredValue, isValid: true },
+    }));
   }
 
   function submitHandler() {
@@ -43,17 +43,12 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     const descriptionIsValid = expenseData.description.trim().length > 0;
 
     if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
-      // Alert.alert('Invalid input', 'Please check your input values');
-      setInputs((curInputs) => {
-        return {
-          amount: { value: curInputs.amount.value, isValid: amountIsValid },
-          date: { value: curInputs.date.value, isValid: dateIsValid },
-          description: {
-            value: curInputs.description.value,
-            isValid: descriptionIsValid,
-          },
-        };
-      });
+      setInputs((curInputs) => ({
+        ...curInputs,
+        amount: { ...curInputs.amount, isValid: amountIsValid },
+        date: { ...curInputs.date, isValid: dateIsValid },
+        description: { ...curInputs.description, isValid: descriptionIsValid },
+      }));
       return;
     }
 
@@ -65,51 +60,66 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     !inputs.date.isValid ||
     !inputs.description.isValid;
 
+  function modalCloseHandler() {
+    setModalVisible(false);
+  }
+
+  function handleDateSelect(selectedDate) {
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      date: { value: selectedDate, isValid: true },
+    }));
+    setModalVisible(false);
+  }
+
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>Your Expense</Text>
-      <View style={styles.inputsRow}>
+      <Text style={styles.title}>지출 내역</Text>
+      <View style={styles.inputsContainer}>
         <Input
-          style={styles.rowInput}
-          label="Amount"
+          label="가격"
           invalid={!inputs.amount.isValid}
           textInputConfig={{
+            placeholder: "원",
             keyboardType: "decimal-pad",
             onChangeText: inputChangedHandler.bind(this, "amount"),
             value: inputs.amount.value,
           }}
         />
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <View style={styles.modal}>
+            <MyCalendar
+              onPress={modalCloseHandler}
+              onSelect={handleDateSelect}
+            />
+          </View>
+        </Modal>
+        <Pressable
+          style={styles.modalButton}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.modalButtonText}>
+            {inputs.date.value ? inputs.date.value : "날짜 선택"}
+          </Text>
+        </Pressable>
         <Input
-          style={styles.rowInput}
-          label="Date"
-          invalid={!inputs.date.isValid}
+          label="설명"
+          invalid={!inputs.description.isValid}
           textInputConfig={{
-            placeholder: "YYYY-MM-DD",
-            maxLength: 10,
-            onChangeText: inputChangedHandler.bind(this, "date"),
-            value: inputs.date.value,
+            multiline: true,
+            onChangeText: inputChangedHandler.bind(this, "description"),
+            value: inputs.description.value,
           }}
         />
       </View>
-      <Input
-        label="Description"
-        invalid={!inputs.description.isValid}
-        textInputConfig={{
-          multiline: true,
-          // autoCapitalize: 'none'
-          // autoCorrect: false // default is true
-          onChangeText: inputChangedHandler.bind(this, "description"),
-          value: inputs.description.value,
-        }}
-      />
       {formIsInvalid && (
         <Text style={styles.errorText}>
-          Invalid input values - please check your entered data!
+          입력값이 유효하지 않습니다. 입력된 데이터를 확인해주세요!
         </Text>
       )}
       <View style={styles.buttons}>
         <Button style={styles.button} mode="flat" onPress={onCancel}>
-          Cancel
+          취소
         </Button>
         <Button style={styles.button} onPress={submitHandler}>
           {submitButtonLabel}
@@ -128,16 +138,29 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "white",
+    color: "black",
     marginVertical: 24,
     textAlign: "center",
   },
-  inputsRow: {
-    flexDirection: "row",
+  inputsContainer: {
+    flexDirection: "column",
     justifyContent: "space-between",
+    marginBottom: 16,
   },
-  rowInput: {
+  modal: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalButton: {
+    backgroundColor: GlobalStyles.colors.primary100,
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 16,
+  },
+  modalButtonText: {
+    color: "gray",
   },
   errorText: {
     textAlign: "center",

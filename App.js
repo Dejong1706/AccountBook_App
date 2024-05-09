@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { GlobalStyles } from "./constants/styles";
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -9,6 +10,7 @@ import RecentExpenses from "./screens/RecentExpenses";
 import AllExpenses from "./screens/AllExpenses";
 import IconButton from "./components/UI/IconButton";
 import ExpensesContextProvider from "./store/expenses-context";
+import Test from "./components/Text";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -37,10 +39,10 @@ function ExpensesOverview() {
         name="RecentExpenses"
         component={RecentExpenses}
         options={{
-          title: "Recent Expenses",
-          tabBarLabel: "Recent",
+          title: "최근 지출내역",
+          tabBarLabel: "최근 지출내역",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="hourglass" size={size} color={color} />
+            <AntDesign name="aliwangwang-o1" size={size} color={color} />
           ),
         }}
       />
@@ -48,10 +50,10 @@ function ExpensesOverview() {
         name="AllExpenses"
         component={AllExpenses}
         options={{
-          title: "All Expenses",
-          tabBarLabel: "All Expenses",
+          title: "모든 지출내역",
+          tabBarLabel: "모든 지출내역",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar" size={size} color={color} />
+            <Ionicons name="calculator" size={size} color={color} />
           ),
         }}
       />
@@ -71,6 +73,11 @@ export default function App() {
               headerTintColor: "white",
             }}
           >
+            {/* <Stack.Screen
+              name="Test"
+              component={Test}
+              options={{ headerShown: false }}
+            /> */}
             <Stack.Screen
               name="ExpensesOverview"
               component={ExpensesOverview}

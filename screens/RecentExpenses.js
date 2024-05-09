@@ -1,28 +1,30 @@
 import { useContext, useEffect, useState } from "react";
 
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 import { ExpensesContext } from "../store/expenses-context";
 import { getDateMinusDays } from "../util/date";
-import { fetchExpense } from "../util/http";
-import LoadingOverlay from "../components/UI/LoadingOverlay";
-import ErrorOverlay from "../components/UI/ErrorOverlay";
+import { fetchExpenses } from "../util/http";
 
 function RecentExpenses() {
-  const expensesCtx = useContext(ExpensesContext);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState();
+
+  const expensesCtx = useContext(ExpensesContext);
+
   useEffect(() => {
     async function getExpenses() {
       setIsFetching(true);
       try {
-        const expenses = await fetchExpense();
+        const expenses = await fetchExpenses();
         expensesCtx.setExpenses(expenses);
-      } catch {
-        setError("Could not fetch expenses!");
+      } catch (error) {
+        setError("비용을 가져올 수 없습니다!");
       }
-
       setIsFetching(false);
     }
+
     getExpenses();
   }, []);
 
@@ -44,8 +46,8 @@ function RecentExpenses() {
   return (
     <ExpensesOutput
       expenses={recentExpenses}
-      expensesPeriod="Last 7 Days"
-      fallbackText="No expenses registered for the last 7 days."
+      expensesPeriod="지출 합계"
+      fallbackText="지출 내역이 없습니다"
     />
   );
 }

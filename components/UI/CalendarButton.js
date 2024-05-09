@@ -1,47 +1,52 @@
+import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
-function Button({ children, onPress, mode, style }) {
-  newLabel = "";
-  if (children === "Add") {
-    newLabel = "추가";
-  } else if (children === "Update") {
-    newLabel = "수정";
-  } else {
-    newLabel = "취소";
-  }
+function CalendarButton({ children, onPress, mode }) {
   return (
-    <View style={style}>
+    <View style={styles.buttonContainer}>
       <Pressable
         onPress={onPress}
         style={({ pressed }) => pressed && styles.pressed}
       >
         <View style={[styles.button, mode === "flat" && styles.flat]}>
           <Text style={[styles.buttonText, mode === "flat" && styles.flatText]}>
-            {newLabel}
+            {children}
           </Text>
         </View>
       </Pressable>
     </View>
   );
 }
-export default Button;
+
+export default CalendarButton;
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   button: {
-    borderRadius: 4,
+    minWidth: 100,
     padding: 8,
-    backgroundColor: "#7286D3",
+    backgroundColor: "white",
+    borderColor: "#7286D3",
+    borderRadius: 16,
+    borderWidth: 2,
+    marginHorizontal: 8,
   },
   flat: {
-    backgroundColor: "#FF8080",
+    backgroundColor: "white",
+    borderColor: "#FF8080",
+    borderRadius: 16,
+    borderWidth: 2,
   },
   buttonText: {
-    color: "white",
+    color: "#7286D3",
     textAlign: "center",
   },
   flatText: {
-    color: "white",
+    color: "#FF8080",
   },
   pressed: {
     opacity: 0.75,

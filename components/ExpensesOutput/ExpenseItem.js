@@ -23,10 +23,10 @@ function ExpenseItem({ id, description, amount, date }) {
           <Text style={[styles.textBase, styles.description]}>
             {description}
           </Text>
-          <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
+          <Text style={styles.textBase}>날짜 : {getFormattedDate(date)}</Text>
         </View>
         <View style={styles.amountContainer}>
-          <Text style={styles.amount}>{amount.toFixed(2)}</Text>
+          <Text style={styles.amount}>{amount.toLocaleString()}원</Text>
         </View>
       </View>
     </Pressable>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
   },
   textBase: {
-    color: GlobalStyles.colors.primary50,
+    color: GlobalStyles.colors.primary900,
   },
   description: {
     fontSize: 16,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
-    minWidth: 80,
+    minWidth: 120,
   },
   amount: {
     color: GlobalStyles.colors.primary500,

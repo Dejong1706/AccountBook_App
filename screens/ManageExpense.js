@@ -2,15 +2,17 @@ import { useContext, useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 import IconButton from "../components/UI/IconButton";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 import { GlobalStyles } from "../constants/styles";
 import { ExpensesContext } from "../store/expenses-context";
 import { storeExpense, updateExpense, deleteExpense } from "../util/http";
-import LoadingOverlay from "../components/UI/LoadingOverlay";
 
 function ManageExpense({ route, navigation }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState();
+
   const expensesCtx = useContext(ExpensesContext);
 
   const editedExpenseId = route.params?.expenseId;
@@ -22,7 +24,7 @@ function ManageExpense({ route, navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? "Edit Expense" : "Add Expense",
+      title: isEditing ? "지출 내역 수정" : "지출 내역 추가",
     });
   }, [navigation, isEditing]);
 
@@ -32,8 +34,8 @@ function ManageExpense({ route, navigation }) {
       await deleteExpense(editedExpenseId);
       expensesCtx.deleteExpense(editedExpenseId);
       navigation.goBack();
-    } catch {
-      setError("Could not delete expense - please try again later!");
+    } catch (error) {
+      setError("비용을 삭제할 수 없습니다. 나중에 다시 시도해주세요!");
       setIsSubmitting(false);
     }
   }
@@ -49,17 +51,17 @@ function ManageExpense({ route, navigation }) {
         expensesCtx.updateExpense(editedExpenseId, expenseData);
         await updateExpense(editedExpenseId, expenseData);
       } else {
-        const id = await storeExpense(expenseData); //firebase post 호출 함수
+        const id = await storeExpense(expenseData);
         expensesCtx.addExpense({ ...expenseData, id: id });
       }
       navigation.goBack();
-    } catch {
-      setError("Could not save data - please try again later!");
+    } catch (error) {
+      setError("데이터를 저장할 수 없습니다. 나중에 다시 시도해주세요!");
       setIsSubmitting(false);
     }
   }
 
-  if (error && !isFetching) {
+  if (error && !isSubmitting) {
     return <ErrorOverlay message={error} />;
   }
 
