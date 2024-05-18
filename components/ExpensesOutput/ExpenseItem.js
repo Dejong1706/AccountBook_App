@@ -13,12 +13,22 @@ function ExpenseItem({ id, description, amount, date }) {
     });
   }
 
+  const expenseItemContainer = [
+    styles.expenseItem,
+    amount < 0 ? styles.negativeAmount : styles.positiveAmount,
+  ];
+
+  const amountText = [
+    styles.amount,
+    amount < 0 ? styles.negative : styles.positive,
+  ];
+
   return (
     <Pressable
       onPress={expensePressHandler}
       style={({ pressed }) => pressed && styles.pressed}
     >
-      <View style={styles.expenseItem}>
+      <View style={expenseItemContainer}>
         <View>
           <Text style={[styles.textBase, styles.description]}>
             {description}
@@ -26,7 +36,7 @@ function ExpenseItem({ id, description, amount, date }) {
           <Text style={styles.textBase}>날짜 : {getFormattedDate(date)}</Text>
         </View>
         <View style={styles.amountContainer}>
-          <Text style={styles.amount}>{amount.toLocaleString()}원</Text>
+          <Text style={amountText}>{amount.toLocaleString()}원</Text>
         </View>
       </View>
     </Pressable>
@@ -42,7 +52,6 @@ const styles = StyleSheet.create({
   expenseItem: {
     padding: 12,
     marginVertical: 8,
-    backgroundColor: GlobalStyles.colors.primary500,
     flexDirection: "row",
     justifyContent: "space-between",
     borderRadius: 6,
@@ -52,6 +61,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.4,
   },
+  negativeAmount: { backgroundColor: "#ff9999" },
+  positiveAmount: { backgroundColor: "#AAC4FF" },
   textBase: {
     color: GlobalStyles.colors.primary900,
   },
@@ -70,7 +81,12 @@ const styles = StyleSheet.create({
     minWidth: 120,
   },
   amount: {
-    color: GlobalStyles.colors.primary500,
     fontWeight: "bold",
+  },
+  negative: {
+    color: "#ff9999",
+  },
+  positive: {
+    color: "#AAC4FF",
   },
 });

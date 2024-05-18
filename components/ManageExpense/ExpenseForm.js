@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Alert, Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 import Input from "./Input";
 import Button from "../UI/Button";
@@ -9,6 +10,8 @@ import MyCalendar from "./Calendar";
 
 function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [category, setCategory] = useState("");
+  const [categoryIsValid, setCategoryIsValid] = useState(true);
   const [inputs, setInputs] = useState({
     amount: {
       value: defaultValues ? defaultValues.amount.toString() : "",
@@ -32,23 +35,35 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   }
 
   function submitHandler() {
+    const amountValue = +inputs.amount.value;
+    const adjustedAmount = category === "export" ? -amountValue : amountValue;
+
     const expenseData = {
-      amount: +inputs.amount.value,
+      amount: adjustedAmount,
       date: new Date(inputs.date.value),
       description: inputs.description.value,
+      category: category,
     };
 
-    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
+    const amountIsValid =
+      !isNaN(expenseData.amount) && expenseData.amount !== 0;
     const dateIsValid = expenseData.date.toString() !== "Invalid Date";
     const descriptionIsValid = expenseData.description.trim().length > 0;
+    const categoryIsValid = category !== "";
 
-    if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
+    if (
+      !amountIsValid ||
+      !dateIsValid ||
+      !descriptionIsValid ||
+      !categoryIsValid
+    ) {
       setInputs((curInputs) => ({
         ...curInputs,
         amount: { ...curInputs.amount, isValid: amountIsValid },
         date: { ...curInputs.date, isValid: dateIsValid },
         description: { ...curInputs.description, isValid: descriptionIsValid },
       }));
+      setCategoryIsValid(categoryIsValid);
       return;
     }
 
@@ -58,7 +73,8 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   const formIsInvalid =
     !inputs.amount.isValid ||
     !inputs.date.isValid ||
-    !inputs.description.isValid;
+    !inputs.description.isValid ||
+    !categoryIsValid;
 
   function modalCloseHandler() {
     setModalVisible(false);
@@ -75,6 +91,23 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   return (
     <View style={styles.form}>
       <Text style={styles.title}>지출 내역</Text>
+      <View style={styles.buttons}>
+        <Picker
+          selectedValue={category}
+          onValueChange={(itemValue) => {
+            setCategory(itemValue);
+            setCategoryIsValid(true);
+          }}
+          style={styles.picker}
+        >
+          <Picker.Item label="카테고리 선택" value="" />
+          <Picker.Item label="수입" value="import" />
+          <Picker.Item label="지출" value="export" />
+        </Picker>
+      </View>
+      {!categoryIsValid && (
+        <Text style={styles.errorText}>카테고리를 선택해주세요!</Text>
+      )}
       <View style={styles.inputsContainer}>
         <Input
           label="가격"
@@ -160,7 +193,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   modalButtonText: {
-    color: "gray",
+    color: "black",
   },
   errorText: {
     textAlign: "center",
@@ -175,5 +208,13 @@ const styles = StyleSheet.create({
   button: {
     minWidth: 120,
     marginHorizontal: 8,
+  },
+  picker: {
+    height: 50,
+    width: 200,
+    backgroundColor: "white",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "black",
   },
 });
