@@ -23,6 +23,11 @@ function ExpenseItem({ id, description, amount, date }) {
     amount < 0 ? styles.negative : styles.positive,
   ];
 
+  const newAmountContainer = [
+    styles.amountContainer,
+    amount < 0 ? styles.negativeBorder : styles.positiveBorder,
+  ];
+
   return (
     <Pressable
       onPress={expensePressHandler}
@@ -35,7 +40,7 @@ function ExpenseItem({ id, description, amount, date }) {
           </Text>
           <Text style={styles.textBase}>날짜 : {getFormattedDate(date)}</Text>
         </View>
-        <View style={styles.amountContainer}>
+        <View style={newAmountContainer}>
           <Text style={amountText}>{amount.toLocaleString()}원</Text>
         </View>
       </View>
@@ -61,8 +66,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.4,
   },
-  negativeAmount: { backgroundColor: "#ff9999" },
-  positiveAmount: { backgroundColor: "#AAC4FF" },
+  negativeAmount: { backgroundColor: "white" },
+  positiveAmount: { backgroundColor: "white" },
   textBase: {
     color: GlobalStyles.colors.primary900,
   },
@@ -79,9 +84,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 4,
     minWidth: 120,
+    borderWidth: 2,
   },
   amount: {
     fontWeight: "bold",
+  },
+  negativeBorder: {
+    borderColor: "#ff9999",
+  },
+  positiveBorder: {
+    borderColor: "#AAC4FF",
   },
   negative: {
     color: "#ff9999",

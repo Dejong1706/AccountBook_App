@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import ExpensesList from "./ExpensesList";
 import ExpensesSummary from "./ExpensesSummary";
+import DatePicker from "../DatePicker";
 
 function ExpensesOutput({ expenses, expensesPeriod, fallbackText }) {
   let content = <Text style={styles.infoText}>{fallbackText}</Text>;
@@ -14,6 +15,7 @@ function ExpensesOutput({ expenses, expensesPeriod, fallbackText }) {
   return (
     <View style={styles.container}>
       <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
+      <DatePicker />
       {content}
     </View>
   );

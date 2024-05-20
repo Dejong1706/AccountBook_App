@@ -24,7 +24,7 @@ function ManageExpense({ route, navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? "지출 내역 수정" : "지출 내역 추가",
+      title: isEditing ? "거래내역 수정" : "거레내역 추가",
     });
   }, [navigation, isEditing]);
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 8,
     borderTopWidth: 2,
-    borderTopColor: GlobalStyles.colors.primary200,
+    borderTopColor: "#135D66",
     alignItems: "center",
   },
 });

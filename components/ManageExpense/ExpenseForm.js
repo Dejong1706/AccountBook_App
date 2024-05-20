@@ -7,10 +7,13 @@ import Button from "../UI/Button";
 import { getFormattedDate } from "../../util/date";
 import { GlobalStyles } from "../../constants/styles";
 import MyCalendar from "./Calendar";
+import Test from "../DatePicker";
 
 function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(
+    defaultValues ? defaultValues.category : ""
+  );
   const [categoryIsValid, setCategoryIsValid] = useState(true);
   const [inputs, setInputs] = useState({
     amount: {
@@ -90,7 +93,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>지출 내역</Text>
+      <Text style={styles.title}>거래 내역</Text>
       <View style={styles.buttons}>
         <Picker
           selectedValue={category}
@@ -100,13 +103,13 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           }}
           style={styles.picker}
         >
-          <Picker.Item label="카테고리 선택" value="" />
+          <Picker.Item label="수입/지출 선택" value={category} />
           <Picker.Item label="수입" value="import" />
           <Picker.Item label="지출" value="export" />
         </Picker>
       </View>
       {!categoryIsValid && (
-        <Text style={styles.errorText}>카테고리를 선택해주세요!</Text>
+        <Text style={styles.errorText}>수입/지출을 선택해주세요!</Text>
       )}
       <View style={styles.inputsContainer}>
         <Input

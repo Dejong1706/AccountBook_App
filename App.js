@@ -10,7 +10,8 @@ import RecentExpenses from "./screens/RecentExpenses";
 import AllExpenses from "./screens/AllExpenses";
 import IconButton from "./components/UI/IconButton";
 import ExpensesContextProvider from "./store/expenses-context";
-import Test from "./components/Text";
+import MainScreen from "./screens/MainScreen";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -36,13 +37,24 @@ function ExpensesOverview() {
       })}
     >
       <BottomTabs.Screen
+        name="MainScreen"
+        component={MainScreen}
+        options={{
+          title: "이번 달 총 금액",
+          tabBarLabel: "이번 달 총 금액",
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="smile-o" size={size} color={color} />
+          ),
+        }}
+      />
+      <BottomTabs.Screen
         name="RecentExpenses"
         component={RecentExpenses}
         options={{
           title: "최근 지출내역",
           tabBarLabel: "최근 지출내역",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="aliwangwang-o1" size={size} color={color} />
+            <FontAwesome name="calendar-o" size={size} color={color} />
           ),
         }}
       />
@@ -73,11 +85,6 @@ export default function App() {
               headerTintColor: "white",
             }}
           >
-            {/* <Stack.Screen
-              name="Test"
-              component={Test}
-              options={{ headerShown: false }}
-            /> */}
             <Stack.Screen
               name="ExpensesOverview"
               component={ExpensesOverview}
