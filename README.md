@@ -75,21 +75,21 @@
 
 ### [최근 거래내역 스크린]
 - 거래내역중 오늘을 기준으로 지난 7일간의 거래내역 데이터만을 보여줍니다.
-- 데이터가 존재하지 않을 경우 데이터가 없다는 글씨가 시각화 됩니다.
+- 데이터가 존재하지 않을 경우 데이터가 없다는 글씨를 보여줍니다.
 - 상단의 존재하는 거래 금액을 통해 7일간의 거래 정보를 얻을 수 있습니다.
 
 | 최근 일주일 거래내역 데이터 X | 최근 일주일 거래내역 데이터 O |
 |----------|----------|
-|![일주일 거래X](https://github.com/Team-Cares/Web_Chatting/assets/75114974/2510fd68-2154-4a76-95ff-7897a9c98b38)|![일주일 거래O](https://github.com/Team-Cares/Web_Chatting/assets/75114974/ca6b1927-8c23-48ed-8484-50ea7ec55d75)
-|
+|![일주일 거래X](https://github.com/Team-Cares/Web_Chatting/assets/75114974/ad7f00b2-1d57-470a-bb38-3a40d3e59da3)|![일주일 거래O](https://github.com/Team-Cares/Web_Chatting/assets/75114974/ca6b1927-8c23-48ed-8484-50ea7ec55d75)|
 
-### []
-- 사용자의 이름, 이메일 주소, 비밀번호를 입력받습니다.
-- 로그인과 같은 방식의 유효성 검사를 진행합니다, 유효성 검사에 통과되게 되면 회원가입이 성공합니다.
+### [전체 거래내역 스크린]
+- 모든 거래내역을 보여줍니다.
+- 최근 거래내역과 같이 데이터가 없을 경우 데이터가 없다는 문구를 보여줍니다.
+- 거래내역이 많을 수 있기에 특정 날짜를 선택하여 볼 수 있는 기능을 넣었습니다.
 
-| 회원가입 |
-|----------|
-|![Web_Chatting - Chrome 2024-03-11 오후 7_18_47](https://github.com/Dejong1706/MyBlog/assets/75114974/8c275de7-6e28-4ad6-9528-e3ae1561ccb7)|
+| 전체 거래내역 | 전체 거래내역 날짜 필터 |
+|----------|----------|
+|![모든 거래내역](https://github.com/Team-Cares/Web_Chatting/assets/75114974/a9b208ce-dc2d-4773-857e-805391de6adb)|![모든 거래내역 날짜필터](https://github.com/Team-Cares/Web_Chatting/assets/75114974/0e57f23c-1c7f-4f96-8f38-7dff4bee8794)|
 
 <br>
 
