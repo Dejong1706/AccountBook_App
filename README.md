@@ -1,9 +1,11 @@
 # MMY(거래내역 기입 앱 애플리케이션)
 
-<img src="https://github.com/Team-Cares/Web_Chatting/assets/75114974/671c01df-6485-4003-8bc4-e8e4955d0b99" width="400" height="400"/>
-
+<img src="https://github.com/Team-Cares/Web_Chatting/assets/75114974/671c01df-6485-4003-8bc4-e8e4955d0b99" width="300" height="300"/>
 
 - 다운로드 URL : 진행중
+
+## 영상
+<img src="https://github.com/Team-Cares/Web_Chatting/assets/75114974/9d367918-2b69-4a78-b3ba-97facc7c511e" width="300" height="500">
 
 <br>
 
