@@ -13,17 +13,18 @@ function expensesReducer(state, action) {
     case "ADD":
       return [action.payload, ...state];
     case "SET":
-      const inverted = action.payload.reverse();
-      return inverted;
+      return action.payload.sort((a, b) => new Date(b.date) - new Date(a.date));
     case "UPDATE":
-      const updatebleExepnseIndex = state.findIndex(
+      const updateableExpenseIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
       );
-      const updateableExpense = state[updatebleExepnseIndex];
+      const updateableExpense = state[updateableExpenseIndex];
       const updatedItem = { ...updateableExpense, ...action.payload.data };
       const updatedExpenses = [...state];
-      updatedExpenses[updatebleExepnseIndex] = updatedItem;
-      return updatedExpenses;
+      updatedExpenses[updateableExpenseIndex] = updatedItem;
+      return updatedExpenses.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
     case "DELETE":
       return state.filter((expense) => expense.id !== action.payload);
     default:

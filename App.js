@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { GlobalStyles } from "./constants/styles";
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -51,7 +50,7 @@ function ExpensesOverview() {
         name="RecentExpenses"
         component={RecentExpenses}
         options={{
-          title: "최근 지출내역",
+          title: "최근 일주일 지출내역",
           tabBarLabel: "최근 지출내역",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="calendar-o" size={size} color={color} />

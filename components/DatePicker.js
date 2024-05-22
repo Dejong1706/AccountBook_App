@@ -11,7 +11,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { GlobalStyles } from "../constants/styles";
 
-function DatePicker() {
+function DatePicker({ onDateChange }) {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -21,6 +21,7 @@ function DatePicker() {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
     setSelectedDate(currentDate);
+    onDateChange(currentDate);
   };
 
   const showDatepicker = () => {
@@ -29,6 +30,7 @@ function DatePicker() {
 
   const resetDate = () => {
     setSelectedDate(null);
+    onDateChange(null);
   };
 
   const formatDate = (date) => {
@@ -42,14 +44,10 @@ function DatePicker() {
   return (
     <View style={styles.container}>
       <Pressable onPress={showDatepicker} style={styles.button}>
+        <MaterialIcons name="date-range" size={24} color="#00DFA2" />
         <Text style={styles.text}>
           {selectedDate ? formatDate(selectedDate) : "날짜 선택"}
         </Text>
-        <MaterialIcons
-          name="date-range"
-          size={24}
-          color={GlobalStyles.colors.primary900}
-        />
       </Pressable>
       <TouchableOpacity onPress={resetDate} style={styles.resetButton}>
         <Text style={styles.resetText}>초기화</Text>
@@ -88,18 +86,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 8,
     color: "black",
+    marginLeft: 8,
   },
   resetButton: {
     marginTop: 10,
     backgroundColor: GlobalStyles.colors.secondary500,
     paddingVertical: 8,
     paddingHorizontal: 16,
-    borderRadius: 8,
   },
   resetText: {
     color: "white",
     padding: 8,
-    backgroundColor: GlobalStyles.colors.primary900,
+    backgroundColor: "#00DFA2",
     fontSize: 16,
   },
 });

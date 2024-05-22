@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { GlobalStyles } from "../../constants/styles";
@@ -5,17 +6,34 @@ import ExpensesList from "./ExpensesList";
 import ExpensesSummary from "./ExpensesSummary";
 import DatePicker from "../DatePicker";
 
-function ExpensesOutput({ expenses, expensesPeriod, fallbackText }) {
+function ExpensesOutput({ expenses, expensesPeriod, fallbackText, type }) {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  let filteredExpenses = expenses;
+
+  if (selectedDate) {
+    filteredExpenses = expenses.filter((expense) => {
+      return expense.date.toDateString() === selectedDate.toDateString();
+    });
+  }
+
   let content = <Text style={styles.infoText}>{fallbackText}</Text>;
 
-  if (expenses.length > 0) {
-    content = <ExpensesList expenses={expenses} />;
+  if (filteredExpenses.length > 0) {
+    content = <ExpensesList expenses={filteredExpenses} />;
   }
 
   return (
     <View style={styles.container}>
-      <ExpensesSummary expenses={expenses} periodName={expensesPeriod} />
-      <DatePicker />
+      <ExpensesSummary
+        expenses={filteredExpenses}
+        periodName={expensesPeriod}
+      />
+      {type === "all" && <DatePicker onDateChange={handleDateChange} />}
       {content}
     </View>
   );

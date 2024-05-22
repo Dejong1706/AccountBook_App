@@ -11,6 +11,7 @@ function AllExpenses() {
       expenses={expensesCtx.expenses}
       expensesPeriod="지출 합계"
       fallbackText="지출 내역이 없습니다"
+      type="all"
     />
   );
 }

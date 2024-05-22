@@ -26,18 +26,24 @@ function MainScreen() {
   }, []);
 
   useEffect(() => {
-    const today = new Date();
-    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    if (expensesCtx.expenses.length > 0) {
+      const today = new Date();
+      const firstDayOfMonth = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
 
-    const monthlyExpenses = expensesCtx.expenses.filter((expense) => {
-      return expense.date >= firstDayOfMonth && expense.date <= today;
-    });
+      const monthlyExpenses = expensesCtx.expenses.filter((expense) => {
+        return expense.date >= firstDayOfMonth && expense.date <= today;
+      });
 
-    const total = monthlyExpenses.reduce(
-      (sum, expense) => sum + expense.amount,
-      0
-    );
-    setTotalAmount(total);
+      const total = monthlyExpenses.reduce(
+        (sum, expense) => sum + expense.amount,
+        0
+      );
+      setTotalAmount(total);
+    }
   }, [expensesCtx.expenses]);
 
   if (isFetching) {
@@ -56,16 +62,14 @@ function MainScreen() {
     );
   }
 
-  console.log(totalAmount);
-
   const plusScreen = (
     <View style={styles.container}>
+      <Text style={styles.title}>이번달은 번 돈이 많아요!!</Text>
+      <Image source={require("../assets/mainPlus.png")} style={styles.image} />
       <View style={styles.totalAmountContainer}>
         <Text style={styles.totalAmountTitle}>이번 달 총 금액</Text>
         <Text style={styles.totalPlusAmount}>{totalAmount}원</Text>
       </View>
-      <Image source={require("../assets/pius.png")} style={styles.image} />
-      <Text style={styles.title}>이번달은 번 돈이 많아요!!</Text>
     </View>
   );
 
@@ -75,26 +79,24 @@ function MainScreen() {
         <Text style={styles.totalAmountTitle}>이번 달 총 금액</Text>
         <Text style={styles.totalMinusAmount}>{totalAmount}원</Text>
       </View>
-      <Image source={require("../assets/minus.png")} style={styles.image} />
+      <Image source={require("../assets/mainMinus.png")} style={styles.image} />
       <Text style={styles.title}>이번달은 쓴 돈이 많아요...</Text>
     </View>
   );
 
   const noExpensesScreen = (
     <View style={styles.container}>
-      <Image source={require("../assets/mylogo.png")} style={styles.image} />
+      <Image source={require("../assets/main.png")} style={styles.image} />
       <Text style={styles.title}>거래내역이 존재하지 않습니다</Text>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      {totalAmount !== null
-        ? totalAmount > 0
+      {totalAmount !== null && expensesCtx.expenses.length > 0
+        ? totalAmount >= 0
           ? plusScreen
-          : totalAmount < 0
-          ? minusScreen
-          : noExpensesScreen
+          : minusScreen
         : noExpensesScreen}
     </View>
   );
@@ -133,6 +135,11 @@ const styles = StyleSheet.create({
   totalAmountContainer: {
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 16,
+    backgroundColor: GlobalStyles.colors.primary100,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
   },
   totalAmountTitle: {
     fontSize: 26,
