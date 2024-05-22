@@ -9,8 +9,8 @@ function AllExpenses() {
   return (
     <ExpensesOutput
       expenses={expensesCtx.expenses}
-      expensesPeriod="지출 합계"
-      fallbackText="지출 내역이 없습니다"
+      expensesPeriod="거래내역 합계"
+      fallbackText="거레 내역이 없습니다"
       type="all"
     />
   );

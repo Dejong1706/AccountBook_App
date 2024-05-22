@@ -50,8 +50,8 @@ function ExpensesOverview() {
         name="RecentExpenses"
         component={RecentExpenses}
         options={{
-          title: "최근 일주일 지출내역",
-          tabBarLabel: "최근 지출내역",
+          title: "최근 일주일 거래내역",
+          tabBarLabel: "최근 거래내역",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="calendar-o" size={size} color={color} />
           ),
@@ -61,8 +61,8 @@ function ExpensesOverview() {
         name="AllExpenses"
         component={AllExpenses}
         options={{
-          title: "모든 지출내역",
-          tabBarLabel: "모든 지출내역",
+          title: "모든 거래내역",
+          tabBarLabel: "모든 거래내역",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calculator" size={size} color={color} />
           ),

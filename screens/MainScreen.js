@@ -75,12 +75,12 @@ function MainScreen() {
 
   const minusScreen = (
     <View style={styles.container}>
+      <Text style={styles.title}>이번달은 쓴 돈이 많아요...</Text>
+      <Image source={require("../assets/mainMinus.png")} style={styles.image} />
       <View style={styles.totalAmountContainer}>
         <Text style={styles.totalAmountTitle}>이번 달 총 금액</Text>
         <Text style={styles.totalMinusAmount}>{totalAmount}원</Text>
       </View>
-      <Image source={require("../assets/mainMinus.png")} style={styles.image} />
-      <Text style={styles.title}>이번달은 쓴 돈이 많아요...</Text>
     </View>
   );
 
