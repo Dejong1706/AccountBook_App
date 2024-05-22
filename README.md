@@ -69,8 +69,7 @@
 
 | 거래내역 X | 쓴 금액이 많을 때| 얻은 금액이 많을 때|
 |----------|----------|----------|
-|![거래내역 존재하지않을떄](https://github.com/Team-Cares/Web_Chatting/assets/75114974/ec611d1d-7f97-478f-8aa1-abf2de737f9e)|![쓴돈이많을때](https://github.com/Team-Cares/Web_Chatting/assets/75114974/4b3c1820-8467-48d1-927d-a8ebd6506f4c)|![쓴돈이 적을때](https://github.com/Team-Cares/Web_Chatting/assets/75114974/35bec60d-4fdb-480d-9426-8cb2dba944e4)
-|
+|![데이터없음](https://github.com/Team-Cares/Web_Chatting/assets/75114974/8272431a-9539-4a89-819c-54bd80ea7cc0)|![번돈 적음](https://github.com/Team-Cares/Web_Chatting/assets/75114974/90142958-d2a0-4629-8102-9f1b9b868d46)|![번돈 많음](https://github.com/Team-Cares/Web_Chatting/assets/75114974/7868af0f-8469-44b0-9501-6963c3df69a3)|
 
 <br>
 
