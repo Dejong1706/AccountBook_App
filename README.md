@@ -66,9 +66,10 @@
 ### [메인]
 - 앱 시작시 등장하는 페이지입니다.
 
-| 초기화면 |
-|----------|
-|![메인](https://github.com/Dejong1706/MyBlog/assets/75114974/5ac25ba8-1a8f-4eda-924d-02e20f91ee2b)|
+| 거래내역 X | 쓴 금액이 많을 때| 얻은 금액이 많을 때|
+|----------|----------|----------|
+|![거래내역 존재하지않을떄](https://github.com/Team-Cares/Web_Chatting/assets/75114974/ec611d1d-7f97-478f-8aa1-abf2de737f9e)|![쓴돈이많을때](https://github.com/Team-Cares/Web_Chatting/assets/75114974/4b3c1820-8467-48d1-927d-a8ebd6506f4c)|![쓴돈이 적을때](https://github.com/Team-Cares/Web_Chatting/assets/75114974/35bec60d-4fdb-480d-9426-8cb2dba944e4)
+|
 
 <br>
 
