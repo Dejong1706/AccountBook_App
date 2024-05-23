@@ -2,7 +2,8 @@
 
 <img src="https://github.com/Team-Cares/Web_Chatting/assets/75114974/671c01df-6485-4003-8bc4-e8e4955d0b99" width="300" height="300"/>
 
-- 다운로드 URL : 진행중
+현재는 안드로이드용 APK파일로만 만들어둔 상태입니다. 추후 IOS버전까지 확인후 앱스토어에 배포 테스트를 해볼 예정입니다.
+- 다운로드 URL : https://expo.dev/accounts/ppk0320/projects/MMY/builds/3b9649bc-1bf9-47de-a6b6-34f32d8aa35f
 
 ## 영상
 <img src="https://github.com/Team-Cares/Web_Chatting/assets/75114974/9d367918-2b69-4a78-b3ba-97facc7c511e" width="300" height="500">
