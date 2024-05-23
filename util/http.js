@@ -1,7 +1,9 @@
 import axios from "axios";
+import { FIREBASE_URL } from "@env";
 
-const BACKEND_URL =
-  "https://accountbook-513c6-default-rtdb.firebaseio.com/expenses";
+const BACKEND_URL = process.env.FIREBASE_URL;
+
+console.log(BACKEND_URL);
 
 export async function storeExpense(expenseData) {
   const response = await axios.post(
