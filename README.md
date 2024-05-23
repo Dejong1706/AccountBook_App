@@ -32,7 +32,7 @@
 
 ## 1. 개발 환경
 
-- Front : React-Native, expo, 
+- Front : React-Native, expo, Javascript
 - Back-end : Firebase
 - 버전 및 이슈관리 : Github
  
